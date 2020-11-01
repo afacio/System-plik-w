@@ -9,6 +9,3 @@ main()
 
 if __name__ == "__main__":
     main()
-
-
-#można dodać funkcje zapisywania po zakończonej edycji w pliku
