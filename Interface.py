@@ -11,11 +11,11 @@ class Interface():
                      "\n- make dir\n- ren dir\n- del dir" \
                      "\n- make file\n- read file\n- edit file" \
                      "\n- ren file\n- del file\n- exit\n"
-        self.program_path = os.getcwd()
-        self.home_path = os.path.join(self.program_path, "root")
-        self.current_path = self.home_path
+        self._program_path = os.getcwd()
+        self._home_path = os.path.join(self._program_path, "root")
+        self._current_path = self._home_path
 
-        if not os.path.isdir(self.home_path):
+        if not os.path.isdir(self._home_path):
             print("root doesn't exist")
             Directory.create_dir("root")
         else:
@@ -25,7 +25,7 @@ class Interface():
             else:
                 print("root is empty")
 
-        os.chdir(self.home_path)
+        os.chdir(self._home_path)
 
     def choice(self):
         program = True
@@ -33,31 +33,31 @@ class Interface():
             choice = input(self._MENU)
 
             if choice == 'ls':
-                Directory.show_content(self.current_path)
+                Directory.show_content(self._current_path)
 
             elif choice == 'tree':
-                paths = Tree.DisplayablePath.make_tree(self.home_path)
+                paths = Tree.DisplayablePath.make_tree(self._home_path)
                 for path in paths:
                     print(path.displayable())
 
             elif choice == 'pwd':
-                print(self.current_path)
+                print(self._current_path)
 
             elif choice == 'cd up':
-                Function.show_available(self.current_path, "dir")
+                Function.show_available(self._current_path, "dir")
                 answer = input("Which directory do you want to access?\n")
-                if os.path.isdir(os.path.join(self.current_path, answer)):
-                    self.current_path = os.path.join(self.current_path, answer)
-                    os.chdir(self.current_path)
+                if os.path.isdir(os.path.join(self._current_path, answer)):
+                    self._current_path = os.path.join(self._current_path, answer)
+                    os.chdir(self._current_path)
                     print("Success")
                 else:
                     print("Failure")
                 print(os.getcwd())
 
             elif choice == 'cd down':
-                if not self.current_path == self.home_path:
-                    self.current_path = os.path.normpath(os.getcwd() + os.sep + os.pardir)
-                    os.chdir(self.current_path)
+                if not self._current_path == self._home_path:
+                    self._current_path = os.path.normpath(os.getcwd() + os.sep + os.pardir)
+                    os.chdir(self._current_path)
                     print("Success")
                 else:
                     print("This folder is the lowest ")
@@ -67,35 +67,35 @@ class Interface():
                 Directory.create_dir(input("Enter directory name:"))
 
             elif choice == 'ren dir':
-                name = Function.choice_dir(self.current_path)
+                name = Function.choice_dir(self._current_path)
                 if name:
                     Directory.rename_dir(name)
 
             elif choice == 'del dir':
-                name = Function.choice_dir(self.current_path)
+                name = Function.choice_dir(self._current_path)
                 if name:
-                    Directory.delete_dir(self.current_path, name)
+                    Directory.delete_dir(self._current_path, name)
 
             elif choice == 'make file':
                 File.create_file(input("Enter file name:"))
 
             elif choice == 'read file':
-                name = Function.choice_file(self.current_path)
+                name = Function.choice_file(self._current_path)
                 if name:
                     File.read_file(name)
 
             elif choice == 'edit file':
-                name = Function.choice_file(self.current_path)
+                name = Function.choice_file(self._current_path)
                 if name:
                     File.edit_file(name)
 
             elif choice == 'ren file':
-                name = Function.choice_file(self.current_path)
+                name = Function.choice_file(self._current_path)
                 if name:
                     File.rename_file(name)
 
             elif choice == 'del file':
-                name = Function.choice_file(self.current_path)
+                name = Function.choice_file(self._current_path)
                 if name:
                     File.delete_file(name)
 
