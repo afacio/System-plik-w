@@ -17,6 +17,7 @@ class Interface():
 
         if not os.path.isdir(self.home_path):
             print("root doesn't exist")
+            Directory.create_dir("root")
         else:
             print("root is exists")
             if len(os.listdir('./root')):
